@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#c586a5",
+      },
+    },
     fontFamily: {
       inter: "Inter",
       prata: "Prata",

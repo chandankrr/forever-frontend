@@ -18,7 +18,6 @@ body {
   font-family: Inter;
 }
 
-/* a.active {
-  color: black;
-  font-weight: 600;
-} */
+a.active hr {
+  display: block;
+}
