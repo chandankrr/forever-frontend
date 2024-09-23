@@ -1,0 +1,124 @@
+{
+  "categories": [
+    {
+      "title": "Men Categories",
+      "data": [
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-1.png"
+        }
+      ]
+    },
+    {
+      "title": "Women Categories",
+      "data": [
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-2.png"
+        }
+      ]
+    },
+    {
+      "title": "Kid Categories",
+      "data": [
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        },
+        {
+          "title": "Hoodies & Sweatshirt",
+          "description": "Explore Now!",
+          "image": "/src/assets/images/ct-3.png"
+        }
+      ]
+    }
+  ]
+}
