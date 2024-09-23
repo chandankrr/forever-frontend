@@ -2,7 +2,7 @@ import { MoveRight } from "lucide-react";
 
 const CategoryCard = ({ image, title, description }) => {
   return (
-    <div className="text-gray-700">
+    <div className="text-black">
       <div className="overflow-hidden">
         <img src={image} alt={title} />
       </div>
