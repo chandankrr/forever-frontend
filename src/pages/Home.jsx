@@ -1,5 +1,6 @@
 import Category from "../components/Category";
 import LatestCollection from "../components/LatestCollection";
+import NewsLetterBox from "../components/NewsLetterBox";
 import OurPolicy from "../components/OurPolicy";
 import Slider from "../components/Slider";
 import content from "../data/content.json";
@@ -22,6 +23,7 @@ const Home = () => {
         data={content?.categories[2]?.data}
       />
       <OurPolicy />
+      <NewsLetterBox />
     </div>
   );
 };
