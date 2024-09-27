@@ -24,7 +24,7 @@ const Category = ({ title, data }) => {
   return (
     <div className="my-10">
       <div className="py-8 text-3xl font-medium text-left text-gray-700">
-        <p className="mb-3 uppercase">| {title}</p>
+        <p className="mb-4 uppercase">| {title}</p>
         <Carousel responsive={responsive}>
           {data.map((item, index) => (
             <div className="mr-4" key={index}>

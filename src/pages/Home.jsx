@@ -18,10 +18,6 @@ const Home = () => {
         title={section?.sections[1]?.title}
         data={section?.sections[1]?.data}
       />
-      <Category
-        title={section?.sections[2]?.title}
-        data={section?.sections[2]?.data}
-      />
       <OurPolicy />
       <NewsLetterBox />
     </div>
