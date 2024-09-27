@@ -27,9 +27,8 @@ const Category = ({ title, data }) => {
         <p className="mb-3 uppercase">| {title}</p>
         <Carousel responsive={responsive}>
           {data.map((item, index) => (
-            <div className="mr-4">
+            <div className="mr-4" key={index}>
               <CategoryCard
-                key={index}
                 image={item.image}
                 title={item.title}
                 description={item.description}

@@ -28,7 +28,7 @@ const OurPolicy = () => {
       <div>
         <img
           src={supportIcon}
-          className="w-12 m-auto mb-5"
+          className="w-12 m-auto mb-5 scale-90"
           alt="Support icon"
         />
         <p className="font-semibold">Best Customer Support</p>

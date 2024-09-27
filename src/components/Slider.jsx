@@ -39,7 +39,7 @@ const Slider = () => {
   }, []);
 
   return (
-    <div className="h-[calc(80vh)] mt-24 overflow-hidden border relative">
+    <div className="h-[80vh] overflow-hidden border relative">
       <div
         className="flex h-full transition-all duration-1000 ease-in-out border-gray-400 w-max"
         style={{

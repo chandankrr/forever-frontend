@@ -3,24 +3,24 @@ import LatestCollection from "../components/LatestCollection";
 import NewsLetterBox from "../components/NewsLetterBox";
 import OurPolicy from "../components/OurPolicy";
 import Slider from "../components/Slider";
-import content from "../data/content.json";
+import section from "../data/section.json";
 
 const Home = () => {
   return (
-    <div>
+    <div className="mt-24">
       <Slider />
       <LatestCollection />
       <Category
-        title={content?.categories[0]?.title}
-        data={content?.categories[0]?.data}
+        title={section?.sections[0]?.title}
+        data={section?.sections[0]?.data}
       />
       <Category
-        title={content?.categories[1]?.title}
-        data={content?.categories[1]?.data}
+        title={section?.sections[1]?.title}
+        data={section?.sections[1]?.data}
       />
       <Category
-        title={content?.categories[2]?.title}
-        data={content?.categories[2]?.data}
+        title={section?.sections[2]?.title}
+        data={section?.sections[2]?.data}
       />
       <OurPolicy />
       <NewsLetterBox />

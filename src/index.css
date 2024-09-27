@@ -21,3 +21,17 @@ body {
 a.active hr {
   display: block;
 }
+
+.custom-range-slider {
+  background-color: #e5e7eb;
+
+  .range-slider__thumb {
+    height: 18px;
+    width: 18px;
+    background-color: #374151;
+  }
+
+  .range-slider__range {
+    background-color: #374151;
+  }
+}
