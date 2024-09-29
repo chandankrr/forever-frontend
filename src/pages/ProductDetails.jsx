@@ -8,10 +8,11 @@ import {
   Package,
   CreditCard,
 } from "lucide-react";
+import product from "../data/product.json";
 import BreadCrumb from "../components/BreadCrumb";
 import category from "../data/category.json";
 import Rating from "../components/Rating";
-import ProductCard from "../components/ProductCard";
+import RelatedProduct from "../components/RelatedProduct";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -82,7 +83,7 @@ const ProductDetails = () => {
   }, [productDetails]);
 
   return (
-    <div className="mt-24">
+    <div className="mt-24 transition-opacity duration-500 ease-in opacity-100">
       <div className="flex flex-col gap-12 sm:flex-row">
         {/* product image */}
         <div className="flex flex-col-reverse flex-1 gap-3 mt-5 sm:flex-row">
@@ -216,6 +217,9 @@ const ProductDetails = () => {
           <p>{productDetails?.description}</p>
         </div>
       </div>
+
+      {/* related products */}
+      <RelatedProduct product={product} productDetails={productDetails} />
     </div>
   );
 };
