@@ -35,3 +35,7 @@ a.active hr {
     background-color: #374151;
   }
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

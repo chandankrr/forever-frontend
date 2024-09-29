@@ -19,14 +19,13 @@ const SizeSelector = ({ sizes }) => {
           const isSelected = appliedSizes.includes(size);
           return (
             <div
-              className="flex items-center justify-center h-8 text-gray-600 border cursor-pointer w-9 hover:bg-blue-50"
+              className={`flex items-center justify-center h-8 text-gray-600 border cursor-pointer w-9 hover:border-orange-500 ${
+                isSelected ? "border-orange-500" : "bg-transparent"
+              }`}
               key={index}
               onClick={() => onClickDiv(size)}
-              style={{
-                backgroundColor: isSelected ? "#eff6ff" : "transparent",
-              }}
             >
-              <p className="text-sm">{size}</p>
+              <p className="text-sm texblue">{size}</p>
             </div>
           );
         })}
