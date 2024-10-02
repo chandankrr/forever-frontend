@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { fetchCategories } from "./api/fetchCategories";
 import { loadCategories } from "./store/features/category";
 import { setLoading } from "./store/features/common";
+import { getAllProducts } from "./api/fetchProducts";
+import { loadProducts } from "./store/features/product";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
@@ -27,6 +29,22 @@ const App = () => {
     };
 
     fetchAndLoadCategories();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchAndLoadAllProducts = async () => {
+      try {
+        dispatch(setLoading(true));
+        const res = await getAllProducts();
+        dispatch(loadProducts(res));
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+
+    fetchAndLoadAllProducts();
   }, [dispatch]);
 
   return (

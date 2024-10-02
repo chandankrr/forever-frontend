@@ -7,7 +7,12 @@ import logo from "../assets/images/logo.png";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between h-20 gap-40 px-16 bg-white border-b border-gray-200">
+    <nav
+      className="fixed top-0 left-0 right-0 flex items-center justify-between h-20 gap-40 px-16 bg-white border-b border-gray-200"
+      style={{
+        zIndex: "100000",
+      }}
+    >
       {/* logo */}
       <Link className="gap-8 text-3xl font-semibold text-black" to="/">
         <img src={logo} className="w-36 " alt="logo" />
