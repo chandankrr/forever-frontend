@@ -119,9 +119,9 @@ const ProductList = ({ categoryType }) => {
                   <img
                     className="w-[300px] h-[300px] object-contain"
                     src={productNotFound}
-                    alt="Product not found"
+                    alt="Category not found"
                   />
-                  <h1 className="text-xl font-medium">No Product Found!</h1>
+                  <h1 className="text-xl font-medium">Category Not Found!</h1>
                 </div>
               </div>
             )}

@@ -2,7 +2,11 @@ import axios from "axios";
 import { API_BASE_URL, API_URLS } from "./constant";
 
 export const getAllProducts = async (categoryId, categoryTypeId) => {
-  let url = API_BASE_URL + API_URLS.GET_PRODUCTS + `?categoryId=${categoryId}`;
+  let url = API_BASE_URL + API_URLS.GET_PRODUCTS;
+
+  if (categoryId) {
+    url = url + `?categoryId=${categoryId}`;
+  }
 
   if (categoryTypeId) {
     url = url + `&categoryTypeId=${categoryTypeId}`;

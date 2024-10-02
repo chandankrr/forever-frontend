@@ -1,4 +1,6 @@
-const LatestCollection = () => {
+import ProductCard from "./ProductCard";
+
+const LatestCollection = ({ latestProducts }) => {
   return (
     <div className="my-10">
       {/* latest collection */}
@@ -12,8 +14,11 @@ const LatestCollection = () => {
         </p>
       </div>
 
-      {/* TODO: display 10 latest products */}
-      <div></div>
+      <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6">
+        {latestProducts.map((product, index) => (
+          <ProductCard key={index} product={product} />
+        ))}
+      </div>
     </div>
   );
 };
