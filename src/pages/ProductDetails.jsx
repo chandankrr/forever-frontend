@@ -96,14 +96,17 @@ const ProductDetails = () => {
     if (productCategory) {
       setBreadCrumbLinks((prevLinks) => [
         ...prevLinks,
-        { title: productCategory.name, path: productCategory.path },
+        {
+          title: productCategory.name,
+          path: `/${productCategory?.name.toLowerCase()}`,
+        },
       ]);
     }
 
     if (productCategoryType) {
       setBreadCrumbLinks((prevLinks) => [
         ...prevLinks,
-        { title: productCategoryType.name, path: "" },
+        { title: productCategoryType?.name, path: "" },
       ]);
     }
   }, [productCategory, productCategoryType]);
