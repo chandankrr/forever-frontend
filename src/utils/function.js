@@ -1,13 +1,16 @@
-import product from "../data/product.json";
+import { getProudctBySlug } from "../api/fetchProducts";
+import { setLoading } from "../store/features/common";
+import store from "../store/store";
 
-export const loadProductById = (productId) => {
-  productId = Number(productId);
-
-  const productDetails = product?.products?.find(
-    (product) => product.id === productId
-  );
-
-  return productDetails;
+export const loadProductBySlug = async (slug) => {
+  try {
+    store.dispatch(setLoading(true));
+    const product = await getProudctBySlug(slug);
+    store.dispatch(setLoading(false));
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const calculateOriginalPrice = (discountedPrice, discountPercentage) => {

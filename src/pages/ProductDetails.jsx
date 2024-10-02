@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import { calculateOriginalPrice, loadProductById } from "../utils/function";
+import { Link, useParams } from "react-router-dom";
+import { calculateOriginalPrice, loadProductBySlug } from "../utils/function";
+import { getAllProducts } from "../api/fetchProducts";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../store/features/common";
 import {
   MoveRight,
   ShieldCheck,
@@ -8,56 +11,85 @@ import {
   Package,
   CreditCard,
 } from "lucide-react";
-import product from "../data/product.json";
 import BreadCrumb from "../components/BreadCrumb";
-import category from "../data/category.json";
 import Rating from "../components/Rating";
 import RelatedProduct from "../components/RelatedProduct";
+import Loader from "../components/Loader";
+import productNotFound from "../assets/images/product-not-found.jpg";
+import _ from "lodash";
 
 const ProductDetails = () => {
-  const { productId } = useParams();
+  const { slug } = useParams();
   const [productDetails, setProductDetails] = useState(null);
   const [image, setImage] = useState("");
   const [breadCrumbLinks, setBreadCrumbLinks] = useState([
     { title: "shop", path: "/" },
   ]);
-  const [appliedSizes, setAppliedSizes] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
-
-  const onClickDiv = useCallback((item) => {
-    setAppliedSizes((prevSizes) =>
-      prevSizes.includes(item)
-        ? prevSizes.filter((size) => size !== item)
-        : [...prevSizes, item]
-    );
-  }, []);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.commonState.loading);
+  const categories = useSelector((state) => state.categoryState.categories);
 
   const originalPrice = calculateOriginalPrice(
     productDetails?.price,
     productDetails?.discount
   );
 
+  const onClickDiv = useCallback((item) => {
+    setSelectedSize(item);
+  }, []);
+
   const productCategory = useMemo(() => {
-    return category.categories?.find(
+    return categories?.find(
       (category) => category?.id === productDetails?.category_id
     );
+  }, [productDetails, categories]);
+
+  const productCategoryType = useMemo(() => {
+    return productCategory?.category_types?.find(
+      (item) => item?.id === productDetails.category_type_id
+    );
+  }, [productDetails, productCategory]);
+
+  const colors = useMemo(() => {
+    const colorSet = _.uniq(_.map(productDetails?.product_variants, "color"));
+    return colorSet;
   }, [productDetails]);
 
-  const productType = useMemo(() => {
-    return productCategory?.types?.find(
-      (item) => item?.id === productDetails?.type_id
-    );
-  }, [productCategory, productDetails]);
+  const sizes = useMemo(() => {
+    const sizeSet = _.uniq(_.map(productDetails?.product_variants, "size"));
+    return sizeSet;
+  }, [productDetails]);
 
+  // fetch product details by slug
   useEffect(() => {
-    const product = loadProductById(productId);
-    setProductDetails(product);
+    const fetchProductDetails = async () => {
+      try {
+        dispatch(setLoading(true));
+        const product = await loadProductBySlug(slug);
+        if (product.length > 0) {
+          setProductDetails(product[0]);
+          if (product[0]?.resources?.length > 0) {
+            setImage(product[0].resources[0].url);
+          }
+        } else {
+          setProductDetails(null);
+        }
+      } catch (error) {
+        console.error("Failed to load product details:", error);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
 
-    if (product && product.images && product.images.length > 0) {
-      setImage(product.images[0]);
+    if (slug) {
+      fetchProductDetails();
     }
-  }, [productId]);
+  }, [slug, dispatch]);
 
+  // breadcrumb
   useEffect(() => {
     setBreadCrumbLinks([{ title: "Shop", path: "/" }]);
 
@@ -68,32 +100,83 @@ const ProductDetails = () => {
       ]);
     }
 
-    if (productType) {
+    if (productCategoryType) {
       setBreadCrumbLinks((prevLinks) => [
         ...prevLinks,
-        { title: productType.name, path: "" },
+        { title: productCategoryType.name, path: "" },
       ]);
     }
-  }, [productCategory, productType]);
+  }, [productCategory, productCategoryType]);
 
+  // for default color
   useEffect(() => {
-    if (productDetails?.color?.length > 0) {
-      setSelectedColor(productDetails?.color[0]);
+    if (colors?.length > 0) {
+      setSelectedColor(colors[0]);
+    }
+  }, [colors]);
+
+  // related product
+  useEffect(() => {
+    const fetchAllProducts = async () => {
+      try {
+        const products = await getAllProducts(
+          productDetails?.category_id,
+          productDetails?.category_type_id
+        );
+
+        const excludedProducts = products?.filter(
+          (product) => product?.id !== productDetails.id
+        );
+        setRelatedProducts(excludedProducts);
+      } catch (error) {
+        console.error("Failed to load all products:", error);
+      }
+    };
+
+    if (productDetails?.category_id) {
+      fetchAllProducts();
     }
   }, [productDetails]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!productDetails) {
+    return (
+      <div className="flex justify-center items-center flex-col min-h-[100vh] text-center gap-2">
+        <img
+          className="w-[300px] h-[300px] object-contain"
+          src={productNotFound}
+          alt="Product not found"
+        />
+        <h1 className="text-xl font-medium">Product Not Found!</h1>
+        <p className="max-w-md mb-5 text-sm text-gray-600">
+          We're sorry, but the product you're looking for is not available. It
+          may have been removed or doesn't exist.
+        </p>
+        <Link
+          to="/"
+          className="px-8 py-3 text-sm text-white bg-black active:bg-gray-700"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="mt-24 transition-opacity duration-500 ease-in opacity-100">
+    <div className="mt-24">
       <div className="flex flex-col gap-12 sm:flex-row">
         {/* product image */}
         <div className="flex flex-col-reverse flex-1 gap-3 mt-5 sm:flex-row">
           {/* image stack */}
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
-            {productDetails?.images?.map((item, idx) => (
+            {productDetails?.resources?.map((item, index) => (
               <img
-                onClick={() => setImage(item)}
-                key={idx}
-                src={item}
+                onClick={() => setImage(item.url)}
+                key={index}
+                src={item.url}
                 className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
               />
             ))}
@@ -110,18 +193,22 @@ const ProductDetails = () => {
           {/* breadcrumb */}
           <BreadCrumb links={breadCrumbLinks} />
           {/* title */}
-          <h1 className="mt-5 text-2xl font-medium">{productDetails?.title}</h1>
+          <h1 className="mt-5 text-2xl font-medium">{productDetails?.name}</h1>
           {/* rating */}
           <Rating rating={productDetails?.rating} />
           {/* price */}
           <p className="flex items-baseline gap-2 text-3xl font-medium mt-7">
-            ${productDetails?.price}{" "}
-            <span className="text-base font-light line-through text-gray-500/75">
-              ${originalPrice}{" "}
-            </span>
-            <span className="text-base font-light text-orange-400">
-              ({productDetails?.discount}% OFF)
-            </span>
+            ${productDetails?.price}
+            {productDetails?.discount > 0 && (
+              <>
+                <span className="text-base font-light line-through text-gray-500/75">
+                  ${originalPrice}
+                </span>
+                <span className="text-base font-light text-orange-400">
+                  ({productDetails?.discount}% OFF)
+                </span>
+              </>
+            )}
           </p>
           {/* size selector */}
           <div className="flex flex-col gap-3 mt-10">
@@ -133,8 +220,8 @@ const ProductDetails = () => {
               </div>
             </div>
             <div className="flex flex-wrap gap-3">
-              {productDetails?.size.map((size, index) => {
-                const isSelected = appliedSizes.includes(size);
+              {sizes.map((size, index) => {
+                const isSelected = selectedSize === size;
                 return (
                   <div
                     className={`flex items-center justify-center h-8 text-gray-600 border cursor-pointer w-9 hover:border-orange-500 ${
@@ -153,7 +240,7 @@ const ProductDetails = () => {
           <div className="flex flex-col gap-3 mt-4">
             <p className="font-medium">Available Colors</p>
             <div className="flex flex-wrap gap-3">
-              {productDetails?.color?.map((item, index) => (
+              {colors?.map((item, index) => (
                 <div
                   key={index}
                   className={`relative cursor-pointer`}
@@ -219,7 +306,7 @@ const ProductDetails = () => {
       </div>
 
       {/* related products */}
-      <RelatedProduct product={product} productDetails={productDetails} />
+      <RelatedProduct relatedProducts={relatedProducts} />
     </div>
   );
 };
