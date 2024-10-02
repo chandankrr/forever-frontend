@@ -10,6 +10,7 @@ import SizeSelector from "../components/SizeSelector";
 import categoryFilterData from "../data/category.json";
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader.jsx";
+import productNotFound from "../assets/images/product-not-found.jpg";
 
 const ProductList = ({ categoryType }) => {
   const dispatch = useDispatch();
@@ -77,24 +78,53 @@ const ProductList = ({ categoryType }) => {
 
           {/* product listing */}
           <div className="flex-1 mt-5">
-            <div className="flex items-baseline justify-between">
-              <h1 className="text-3xl font-medium text-left text-gray-700 uppercase">
-                | {category?.description}
-              </h1>
-              <div className="flex gap-4">
-                <p className="text-base cursor-pointer text-primary">New</p>
-                <span>|</span>
-                <p className="text-base text-gray-600 cursor-pointer">
-                  Recommended
-                </p>
-              </div>
-            </div>
+            {category ? (
+              <>
+                <div className="flex items-baseline justify-between">
+                  <h1 className="text-3xl font-medium text-left text-gray-700 uppercase">
+                    | {category?.description}
+                  </h1>
+                  <div className="flex gap-4">
+                    <p className="text-base cursor-pointer text-primary">New</p>
+                    <span>|</span>
+                    <p className="text-base text-gray-600 cursor-pointer">
+                      Recommended
+                    </p>
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-2 gap-8 mt-4 md:grid-cols-3 lg:grid-cols-4 gap-y-6">
-              {products?.map((product, index) => (
-                <ProductCard key={index} product={product} />
-              ))}
-            </div>
+                {/* Show "No Product Found" if products array is empty */}
+                {products.length === 0 ? (
+                  <div className="flex items-center justify-center h-[70%]">
+                    <div className="flex flex-col items-center justify-center">
+                      <img
+                        className="w-[300px] h-[300px] object-contain"
+                        src={productNotFound}
+                        alt="Product not found"
+                      />
+                      <h1 className="text-xl font-medium">No Product Found!</h1>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 gap-8 mt-4 md:grid-cols-3 lg:grid-cols-4 gap-y-6">
+                    {products?.map((product, index) => (
+                      <ProductCard key={index} product={product} />
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="flex items-center justify-center h-[70%]">
+                <div className="flex flex-col items-center justify-center">
+                  <img
+                    className="w-[300px] h-[300px] object-contain"
+                    src={productNotFound}
+                    alt="Product not found"
+                  />
+                  <h1 className="text-xl font-medium">No Product Found!</h1>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
