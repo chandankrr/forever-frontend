@@ -1,11 +1,23 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Heart } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { UserRound } from "lucide-react";
 import logo from "../assets/images/logo.png";
 
-const Navbar = () => {
+const Navbar = ({ defaultNavbar = true }) => {
+  const navigate = useNavigate();
+  // TODO:
+  const user = false;
+
+  const handleClick = () => {
+    if (user) {
+      navigate("/profile");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <nav
       className="fixed top-0 left-0 right-0 flex items-center justify-between h-20 gap-40 px-16 bg-white border-b border-gray-200"
@@ -62,9 +74,11 @@ const Navbar = () => {
             <p className="text-xs text-white">2</p>
           </div>
         </Link>
-        <Link to="/profile">
-          <UserRound className="text-gray-700 size-6" />
-        </Link>
+        {defaultNavbar && (
+          <div className="cursor-pointer" onClick={handleClick}>
+            <UserRound className="text-gray-700 size-6" />
+          </div>
+        )}
       </div>
     </nav>
   );
