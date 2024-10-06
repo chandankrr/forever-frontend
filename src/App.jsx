@@ -13,6 +13,7 @@ import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { Toaster } from "react-hot-toast";
 
 const MainLayout = () => (
   <div className="px-16">
@@ -65,19 +66,22 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/men" element={<ProductList categoryType="MEN" />} />
-        <Route path="/women" element={<ProductList categoryType="WOMEN" />} />
-        <Route path="/kids" element={<ProductList categoryType="KIDS" />} />
-        <Route path="/product/:slug" element={<ProductDetails />} />
-      </Route>
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Route>
-    </Routes>
+    <>
+      <Toaster position="bottom-right" reverseOrder={false} />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/men" element={<ProductList categoryType="MEN" />} />
+          <Route path="/women" element={<ProductList categoryType="WOMEN" />} />
+          <Route path="/kids" element={<ProductList categoryType="KIDS" />} />
+          <Route path="/product/:slug" element={<ProductDetails />} />
+        </Route>
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
