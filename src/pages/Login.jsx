@@ -5,9 +5,9 @@ import { setLoading } from "../store/features/common.js";
 import { loginAPI } from "../api/authentication.js";
 import { saveToken } from "../utils/jwtHelper.js";
 import { LoaderCircle } from "lucide-react";
-import GoogleIcon from "../components/Icon/GoogleIcon";
 import loginImage from "../assets/images/login-image.jpg";
 import toast from "react-hot-toast";
+import GoogleSignIn from "../components/GoogleSignIn.jsx";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -108,10 +108,7 @@ const Login = () => {
             </p>
           </div>
 
-          <button className="inline-flex items-center justify-center gap-2 px-4 py-2 border bg-gray-50">
-            <GoogleIcon />
-            <p>Continue with Google</p>
-          </button>
+          <GoogleSignIn />
           <Link
             className="text-sm text-center text-gray-600/80 hover:underline"
             to="/register"

@@ -14,6 +14,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
+import OAuth2LoginCallback from "./pages/OAuth2LoginCallback";
 
 const MainLayout = () => (
   <div className="px-16">
@@ -79,6 +80,7 @@ const App = () => {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/oauth2/callback" element={<OAuth2LoginCallback />} />
         </Route>
       </Routes>
     </>

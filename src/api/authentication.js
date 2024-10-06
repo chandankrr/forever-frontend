@@ -44,7 +44,7 @@ export const verifyAPI = async (body) => {
 
     return response?.data;
   } catch (error) {
-    console.log("Register API Error: ", error);
+    console.log("verify API Error: ", error);
     return Promise.reject(error);
   }
 };

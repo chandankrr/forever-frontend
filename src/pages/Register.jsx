@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoaderCircle } from "lucide-react";
 import { registerAPI } from "../api/authentication";
 import { setLoading } from "../store/features/common";
-import GoogleIcon from "../components/Icon/GoogleIcon";
 import VerifyCode from "../components/VerifyCode";
 import registerImage from "../assets/images/register-image.jpg";
 import toast from "react-hot-toast";
+import GoogleSignIn from "../components/GoogleSignIn";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -33,7 +33,7 @@ const Register = () => {
           toast.success("User created!");
         }
       } catch (err) {
-        toast.warn("Email already exist!");
+        toast.error("Email already exist!");
       } finally {
         dispatch(setLoading(false));
       }
@@ -111,10 +111,7 @@ const Register = () => {
               </p>
             </div>
 
-            <button className="inline-flex items-center justify-center gap-2 px-4 py-2 border bg-gray-50">
-              <GoogleIcon />
-              <p>Continue with Google</p>
-            </button>
+            <GoogleSignIn />
             <Link
               className="text-sm text-center text-gray-600/80 hover:underline"
               to="/login"
