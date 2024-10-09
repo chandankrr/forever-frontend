@@ -1,12 +1,17 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Search } from "lucide-react";
 import { Heart } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { UserRound } from "lucide-react";
+import { countCartItems } from "../store/features/cart";
 import logo from "../assets/images/logo.png";
 
 const Navbar = ({ defaultNavbar = true }) => {
   const navigate = useNavigate();
+
+  const cartLength = useSelector(countCartItems);
+
   // TODO:
   const user = false;
 
@@ -27,7 +32,7 @@ const Navbar = ({ defaultNavbar = true }) => {
     >
       {/* logo */}
       <Link className="gap-8 text-3xl font-semibold text-black" to="/">
-        <img src={logo} className="w-36 " alt="logo" />
+        <img src={logo} className="max-w-40 " alt="logo" />
       </Link>
 
       {/* nav items */}
@@ -68,11 +73,13 @@ const Navbar = ({ defaultNavbar = true }) => {
             <p className="text-xs text-white">10</p>
           </div>
         </Link>
-        <Link className="relative cursor-pointer" to="/cart">
+        <Link className="relative cursor-pointer" to="/cart-items">
           <ShoppingCart className="text-gray-700 size-6" />
-          <div className="absolute flex items-center justify-center rounded-full -top-2 -right-2 size-5 bg-primary">
-            <p className="text-xs text-white">2</p>
-          </div>
+          {cartLength > 0 && (
+            <div className="absolute flex items-center justify-center rounded-full -top-2 -right-2 size-5 bg-primary">
+              <p className="text-xs text-white">{cartLength}</p>
+            </div>
+          )}
         </Link>
         {defaultNavbar && (
           <div className="cursor-pointer" onClick={handleClick}>

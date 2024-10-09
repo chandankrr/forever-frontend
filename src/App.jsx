@@ -6,6 +6,7 @@ import { loadCategories } from "./store/features/category";
 import { setLoading } from "./store/features/common";
 import { getAllProducts } from "./api/fetchProducts";
 import { loadProducts } from "./store/features/product";
+import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
@@ -13,8 +14,8 @@ import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { Toaster } from "react-hot-toast";
 import OAuth2LoginCallback from "./pages/OAuth2LoginCallback";
+import Cart from "./pages/Cart";
 
 const MainLayout = () => (
   <div className="px-16">
@@ -76,6 +77,7 @@ const App = () => {
           <Route path="/women" element={<ProductList categoryType="WOMEN" />} />
           <Route path="/kids" element={<ProductList categoryType="KIDS" />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
+          <Route path="/cart-items" element={<Cart />} />
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
