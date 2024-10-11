@@ -165,9 +165,12 @@ const Cart = () => {
                 </div>
                 {/* checkout button */}
                 {isLoggedIn ? (
-                  <button className="float-right px-8 py-3 mt-10 text-sm text-white bg-black active:bg-gray-700">
+                  <Link
+                    to="/checkout"
+                    className="float-right px-8 py-3 mt-10 text-sm text-white bg-black active:bg-gray-700"
+                  >
                     PROCEED TO CHECKOUT
-                  </button>
+                  </Link>
                 ) : (
                   <Link
                     to="/login"

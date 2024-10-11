@@ -5,6 +5,7 @@ import { Heart } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { UserRound } from "lucide-react";
 import { countCartItems } from "../store/features/cart";
+import { isTokenValid } from "../utils/jwtHelper";
 import logo from "../assets/images/logo.png";
 
 const Navbar = ({ defaultNavbar = true }) => {
@@ -12,12 +13,9 @@ const Navbar = ({ defaultNavbar = true }) => {
 
   const cartLength = useSelector(countCartItems);
 
-  // TODO:
-  const user = false;
-
   const handleClick = () => {
-    if (user) {
-      navigate("/profile");
+    if (isTokenValid()) {
+      navigate("/account-details");
     } else {
       navigate("/login");
     }

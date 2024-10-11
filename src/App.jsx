@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchCategories } from "./api/fetchCategories";
 import { loadCategories } from "./store/features/category";
@@ -7,30 +7,21 @@ import { setLoading } from "./store/features/common";
 import { getAllProducts } from "./api/fetchProducts";
 import { loadProducts } from "./store/features/product";
 import { Toaster } from "react-hot-toast";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Footer from "./components/Footer";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import OAuth2LoginCallback from "./pages/OAuth2LoginCallback";
 import Cart from "./pages/Cart";
-
-const MainLayout = () => (
-  <div className="px-16">
-    <Navbar />
-    <Outlet />
-    <Footer />
-  </div>
-);
-
-const AuthLayout = () => (
-  <div>
-    <Navbar defaultNavbar={false} />
-    <Outlet />
-  </div>
-);
+import Account from "./pages/Account";
+import MainLayout from "./layout/MainLayout";
+import AuthLayout from "./layout/AuthLayout";
+import ProtectedRoute from "./layout/ProtectedRoute";
+import Checkout from "./pages/Checkout";
+import AuthProtectedRoute from "./layout/AuthProtectedRoute";
+import ConfirmPayment from "./pages/ConfirmPayment";
+import OrderConfirm from "./pages/OrderConfirm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -78,10 +69,56 @@ const App = () => {
           <Route path="/kids" element={<ProductList categoryType="KIDS" />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
           <Route path="/cart-items" element={<Cart />} />
+          <Route
+            path="/account-details"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/confirmPayment"
+            element={
+              <ProtectedRoute>
+                <ConfirmPayment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orderConfirmed"
+            element={
+              <ProtectedRoute>
+                <OrderConfirm />
+              </ProtectedRoute>
+            }
+          />
         </Route>
         <Route element={<AuthLayout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={
+              <AuthProtectedRoute>
+                <Login />
+              </AuthProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <AuthProtectedRoute>
+                <Register />
+              </AuthProtectedRoute>
+            }
+          />
           <Route path="/oauth2/callback" element={<OAuth2LoginCallback />} />
         </Route>
       </Routes>
