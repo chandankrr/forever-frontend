@@ -6,7 +6,7 @@ import { loadCategories } from "./store/features/category";
 import { setLoading } from "./store/features/common";
 import { getAllProducts } from "./api/fetchProducts";
 import { loadProducts } from "./store/features/product";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/sonner";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
@@ -60,7 +60,7 @@ const App = () => {
 
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />

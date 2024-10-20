@@ -85,7 +85,9 @@ const ProductList = ({ categoryType }) => {
                     | {category?.description}
                   </h1>
                   <div className="flex gap-4">
-                    <p className="text-base cursor-pointer text-primary">New</p>
+                    <p className="text-base cursor-pointer text-[#c586a5]">
+                      New
+                    </p>
                     <span>|</span>
                     <p className="text-base text-gray-600 cursor-pointer">
                       Recommended

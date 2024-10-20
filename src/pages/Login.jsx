@@ -5,8 +5,8 @@ import { setLoading } from "../store/features/common.js";
 import { loginAPI } from "../api/authentication.js";
 import { saveToken } from "../utils/jwtHelper.js";
 import { LoaderCircle } from "lucide-react";
+import { toast } from "sonner";
 import loginImage from "../assets/images/login-image.jpg";
-import toast from "react-hot-toast";
 import GoogleSignIn from "../components/GoogleSignIn.jsx";
 
 const Login = () => {
@@ -29,7 +29,7 @@ const Login = () => {
 
         if (res?.token) {
           saveToken(res.token);
-          toast.success("Login successful");
+          toast.success("Login successful!");
           navigate("/");
         } else {
           toast.error("Something went wrong!");
@@ -109,11 +109,9 @@ const Login = () => {
           </div>
 
           <GoogleSignIn />
-          <Link
-            className="text-sm text-center text-gray-600/80 hover:underline"
-            to="/register"
-          >
-            Don&apos;t have an account? Sign up
+          <Link className="text-sm text-center text-gray-600/80" to="/register">
+            Don&apos;t have an account?{" "}
+            <span className="hover:underline">Sign up</span>
           </Link>
         </div>
       </div>

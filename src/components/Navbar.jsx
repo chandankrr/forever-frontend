@@ -67,14 +67,14 @@ const Navbar = ({ defaultNavbar = true }) => {
       <div className="flex items-center gap-8">
         <Link className="relative cursor-pointer" to="/wishlist">
           <Heart className="text-gray-700 size-6" />
-          <div className="absolute flex items-center justify-center rounded-full -top-2 -right-2 size-5 bg-primary">
+          <div className="absolute flex items-center justify-center rounded-full -top-2 -right-2 size-5 bg-[#c586a5]">
             <p className="text-xs text-white">10</p>
           </div>
         </Link>
         <Link className="relative cursor-pointer" to="/cart-items">
           <ShoppingCart className="text-gray-700 size-6" />
           {cartLength > 0 && (
-            <div className="absolute flex items-center justify-center rounded-full -top-2 -right-2 size-5 bg-primary">
+            <div className="absolute flex items-center justify-center rounded-full -top-2 -right-2 size-5 bg-[#c586a5]">
               <p className="text-xs text-white">{cartLength}</p>
             </div>
           )}

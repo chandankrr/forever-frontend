@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoaderCircle } from "lucide-react";
 import { setLoading } from "../store/features/common";
 import { verifyAPI } from "../api/authentication";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const VerifyCode = ({ email }) => {
   const [values, setValues] = useState({

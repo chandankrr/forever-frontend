@@ -9,7 +9,7 @@ import { createRequest } from "../utils/orderUtil";
 import { selectCartItems } from "../store/features/cart";
 import { placeOrderAPI } from "../api/order";
 import { setLoading } from "../store/features/common";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const CheckoutForm = ({
   userId,

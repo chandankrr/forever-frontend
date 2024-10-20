@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoaderCircle } from "lucide-react";
 import { registerAPI } from "../api/authentication";
 import { setLoading } from "../store/features/common";
+import { toast } from "sonner";
 import VerifyCode from "../components/VerifyCode";
 import registerImage from "../assets/images/register-image.jpg";
-import toast from "react-hot-toast";
 import GoogleSignIn from "../components/GoogleSignIn";
 
 const Register = () => {
@@ -112,11 +112,9 @@ const Register = () => {
             </div>
 
             <GoogleSignIn />
-            <Link
-              className="text-sm text-center text-gray-600/80 hover:underline"
-              to="/login"
-            >
-              Already have an account? Log in
+            <Link className="text-sm text-center text-gray-600/80" to="/login">
+              Already have an account?{" "}
+              <span className="hover:underline">Log in</span>
             </Link>
           </div>
         )}

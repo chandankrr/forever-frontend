@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/jwtHelper";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../store/features/cart";
+import { toast } from "sonner";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Account = () => {
   const onLogout = () => {
     logout();
     dispatch(clearCart());
+    toast.success("User logout!");
     navigate("/");
   };
   return (

@@ -12,12 +12,12 @@ import {
   CreditCard,
 } from "lucide-react";
 import { addItemToCartAction } from "../store/actions/cartAction";
+import { toast } from "sonner";
 import BreadCrumb from "../components/BreadCrumb";
 import Rating from "../components/Rating";
 import RelatedProduct from "../components/RelatedProduct";
 import Loader from "../components/Loader";
 import productNotFound from "../assets/images/product-not-found.jpg";
-import toast from "react-hot-toast";
 import _ from "lodash";
 
 const ProductDetails = () => {
@@ -69,28 +69,38 @@ const ProductDetails = () => {
   const addItemToCart = useCallback(() => {
     if (!selectedSize) {
       toast.error("Please select a size");
-    } else {
-      const selectedVariant = productDetails?.product_variants?.filter(
-        (variant) =>
-          variant?.size === selectedSize && variant?.color === selectedColor
-      );
-      if (selectedVariant[0]?.stock_quantity > 0) {
-        dispatch(
-          addItemToCartAction({
-            productId: productDetails?.id,
-            productName: productDetails?.name,
-            thumbnail: productDetails?.thumbnail,
-            variant: selectedVariant[0],
-            quantity: 1,
-            subTotal: productDetails?.price,
-            price: productDetails?.price,
-            slug: productDetails?.slug,
-          })
-        );
-      } else {
-        toast.error("Selected product is out of stock");
-      }
+      return;
     }
+
+    const selectedVariant = productDetails?.product_variants?.find(
+      (variant) =>
+        variant?.size === selectedSize && variant?.color === selectedColor
+    );
+
+    if (!selectedVariant) {
+      toast.error("Selected variant not found");
+      return;
+    }
+
+    if (selectedVariant.stock_quantity <= 0) {
+      toast.error("Selected product is out of stock");
+      return;
+    }
+
+    dispatch(
+      addItemToCartAction({
+        productId: productDetails?.id,
+        productName: productDetails?.name,
+        thumbnail: productDetails?.thumbnail,
+        variant: selectedVariant,
+        quantity: 1,
+        subTotal: productDetails?.price,
+        price: productDetails?.price,
+        slug: productDetails?.slug,
+      })
+    );
+
+    toast.success("Product added to cart");
   }, [dispatch, productDetails, selectedColor, selectedSize]);
 
   // fetch product details by slug

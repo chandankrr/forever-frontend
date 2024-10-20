@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setLoading } from "../store/features/common";
 import { confirmPaymentAPI } from "../api/order";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import Loader from "../components/Loader";
 
 const ConfirmPayment = () => {
@@ -32,7 +32,7 @@ const ConfirmPayment = () => {
               break;
             case "pending":
               navigate(`/orderPending?orderId=${orderId}`);
-              toast.warning(
+              toast.error(
                 "Payment is pending. We'll update you once it's confirmed."
               );
               break;
@@ -48,7 +48,7 @@ const ConfirmPayment = () => {
           }
         })
         .catch((err) => {
-          console.error("Payment confirmation error:", err);
+          console("Payment confirmation error:", err);
           toast.error(
             "An error occurred while confirming your payment. Please contact support."
           );
