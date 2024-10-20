@@ -121,7 +121,7 @@ const Checkout = () => {
                   <input
                     type="radio"
                     name="payment-method"
-                    value={"CARD"}
+                    value="CARD"
                     onChange={() => setPaymentMethod("CARD")}
                     defaultChecked
                   />
@@ -131,7 +131,7 @@ const Checkout = () => {
                   <input
                     type="radio"
                     name="payment-method"
-                    value={"UPI"}
+                    value="UPI"
                     onChange={() => setPaymentMethod("UPI")}
                   />
                   <p>UPI/Wallet</p>
@@ -140,7 +140,7 @@ const Checkout = () => {
                   <input
                     type="radio"
                     name="payment-method"
-                    value={"COD"}
+                    value="COD"
                     onChange={() => setPaymentMethod("COD")}
                   />
                   <p>Cash on Delivery</p>
@@ -153,6 +153,7 @@ const Checkout = () => {
                     addressId={userInfo?.addresses[0]?.id}
                     totalAmount={(subTotal + shippingFee).toFixed(2)}
                     expectedDeliveryDate={selectedDate?.toISOString()}
+                    paymentMethod={paymentMethod}
                   />
                 )}
               </div>

@@ -3,7 +3,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRequest } from "../utils/orderUtil";
 import { selectCartItems } from "../store/features/cart";
@@ -16,17 +16,31 @@ const CheckoutForm = ({
   addressId,
   totalAmount,
   expectedDeliveryDate,
+  paymentMethod,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
+  const [isStripeReady, setIsStripeReady] = useState(false);
+
+  useEffect(() => {
+    if (stripe && elements) {
+      setIsStripeReady(true);
+    }
+  }, [stripe, elements]);
+
+  useEffect(() => {
+    if (isStripeReady && paymentMethod === "CARD") {
+      elements.update({ type: "card" });
+    }
+  }, [isStripeReady, paymentMethod, elements]);
 
   const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault();
 
-      if (!stripe || !elements) {
+      if (!stripe || !elements || !isStripeReady) {
         return;
       }
 
@@ -68,7 +82,18 @@ const CheckoutForm = ({
         dispatch(setLoading(false));
       }
     },
-    [cartItems, userId, addressId, totalAmount, expectedDeliveryDate, dispatch]
+    [
+      cartItems,
+      userId,
+      addressId,
+      totalAmount,
+      expectedDeliveryDate,
+      paymentMethod,
+      stripe,
+      elements,
+      isStripeReady,
+      dispatch,
+    ]
   );
 
   return (
@@ -77,7 +102,7 @@ const CheckoutForm = ({
       <button
         className="px-8 py-3 mt-5 text-sm text-white bg-black active:bg-gray-700"
         type="submit"
-        disabled={!stripe || !elements}
+        disabled={!isStripeReady}
       >
         PAY NOW
       </button>
